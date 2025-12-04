@@ -186,3 +186,4 @@ const calculateConsecutiveDays = (dateStrings) => {
   return consecutive
 }
 
+

@@ -19,3 +19,4 @@ const Skeleton = ({ className = '', variant = 'default' }) => {
 
 export default Skeleton
 
+

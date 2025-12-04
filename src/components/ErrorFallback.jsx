@@ -124,3 +124,4 @@ const ErrorFallback = ({ error, errorInfo, onReset, isDark }) => {
 
 export default ErrorFallback
 
+

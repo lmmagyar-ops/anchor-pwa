@@ -30,3 +30,4 @@ const StreakCounter = ({ activity, label, isDark }) => {
 
 export default StreakCounter
 
+

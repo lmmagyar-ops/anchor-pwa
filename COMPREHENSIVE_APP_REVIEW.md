@@ -47,3 +47,4 @@ Let me review what should be correct:
 3. Verify Insight tab button is working
 4. Check all other tabs for issues
 
+

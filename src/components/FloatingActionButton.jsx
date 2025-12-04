@@ -114,3 +114,4 @@ const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBr
 
 export default FloatingActionButton
 
+

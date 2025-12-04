@@ -168,3 +168,4 @@ These features are marked as "High Effort" and can be prioritized based on user 
 
 Keyboard shortcuts and swipe gestures are now fully functional across the app, significantly improving usability and accessibility.
 
+

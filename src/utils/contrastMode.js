@@ -17,3 +17,4 @@ export const initHighContrast = () => {
   document.documentElement.classList.toggle('high-contrast', enabled)
 }
 
+

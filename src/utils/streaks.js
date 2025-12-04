@@ -157,3 +157,4 @@ export const getTotalActiveDays = () => {
   return allDates.size
 }
 
+
