@@ -1,0 +1,607 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme CSS Variables */
+:root {
+  --theme-primary: #14b8a6;
+  --theme-primary-dark: #0d9488;
+  --theme-primary-light: #2dd4bf;
+  --theme-accent: #6366f1;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Micro-interactions for tab switching */
+.tab-content-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.tab-content-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.tab-content-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tab-content-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+}
+
+/* Smooth tab transition wrapper */
+.tab-transition-wrapper {
+  animation: fadeInSlide 300ms ease-out forwards;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Smooth transitions for buttons and interactive elements */
+button {
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Focus Management - Clear focus indicators for keyboard navigation */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid theme('colors.teal.500');
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.dark *:focus-visible {
+  outline-color: theme('colors.teal.400');
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: theme('colors.teal.600');
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus Management - Clear focus indicators for keyboard navigation */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid theme('colors.teal.500');
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.dark *:focus-visible {
+  outline-color: theme('colors.teal.400');
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: theme('colors.teal.600');
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Toast animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+/* Success animation keyframes */
+@keyframes bounceOnce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-bounce-once {
+  animation: bounceOnce 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+/* CTA Button Glow & Shimmer Effects - Calming, subtle animations */
+.cta-glow-button {
+  position: relative;
+  animation: cta-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes cta-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.3), 0 0 40px rgba(14, 184, 166, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(14, 184, 166, 0.4), 0 0 50px rgba(14, 184, 166, 0.25);
+  }
+}
+
+.cta-glow-button:hover {
+  animation: none;
+  box-shadow: 0 0 35px rgba(14, 184, 166, 0.5), 0 0 70px rgba(14, 184, 166, 0.35), 0 0 100px rgba(14, 184, 166, 0.25);
+  transition: box-shadow 0.5s ease-out;
+}
+
+.dark .cta-glow-button {
+  animation: cta-glow-pulse-dark 4s ease-in-out infinite;
+}
+
+@keyframes cta-glow-pulse-dark {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.4), 0 0 40px rgba(14, 184, 166, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(14, 184, 166, 0.5), 0 0 50px rgba(14, 184, 166, 0.35);
+  }
+}
+
+.dark .cta-glow-button:hover {
+  animation: none;
+  box-shadow: 0 0 35px rgba(14, 184, 166, 0.6), 0 0 70px rgba(14, 184, 166, 0.45), 0 0 100px rgba(14, 184, 166, 0.35);
+  transition: box-shadow 0.5s ease-out;
+}
+
+.cta-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Respect reduced motion for CTA effects */
+@media (prefers-reduced-motion: reduce) {
+  .cta-shimmer {
+    animation: none;
+  }
+  
+  .cta-glow-button {
+    animation: none;
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.3), 0 0 40px rgba(14, 184, 166, 0.2);
+  }
+  
+  .dark .cta-glow-button {
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.4), 0 0 40px rgba(14, 184, 166, 0.3);
+  }
+}
+
+/* High Contrast Mode - Enhanced WCAG AAA compliant */
+.high-contrast {
+  /* High contrast color palette - WCAG AAA compliant with better visual hierarchy */
+  --hc-bg-light: #ffffff;
+  --hc-bg-dark: #000000;
+  --hc-surface-light: #f0f0f0;
+  --hc-surface-dark: #1a1a1a;
+  --hc-text-light: #000000;
+  --hc-text-dark: #ffffff;
+  --hc-text-secondary-light: #333333;
+  --hc-text-secondary-dark: #e0e0e0;
+  --hc-primary: #0066ff;
+  --hc-primary-dark: #0044cc;
+  --hc-accent: #00ccff;
+  --hc-border: #000000;
+  --hc-border-dark: #ffffff;
+  --hc-success: #00aa00;
+  --hc-error: #cc0000;
+  --hc-warning: #ff8800;
+}
+
+/* Light mode high contrast */
+.high-contrast:not(.dark) {
+  background-color: var(--hc-bg-light) !important;
+  color: var(--hc-text-light) !important;
+}
+
+.high-contrast:not(.dark) .bg-slate-50,
+.high-contrast:not(.dark) .bg-white,
+.high-contrast:not(.dark) .bg-slate-100 {
+  background-color: var(--hc-bg-light) !important;
+}
+
+.high-contrast:not(.dark) .bg-slate-900,
+.high-contrast:not(.dark) .bg-slate-950,
+.high-contrast:not(.dark) .bg-slate-800 {
+  background-color: var(--hc-surface-light) !important;
+}
+
+.high-contrast:not(.dark) .text-slate-900,
+.high-contrast:not(.dark) .text-slate-800,
+.high-contrast:not(.dark) .text-slate-700 {
+  color: var(--hc-text-light) !important;
+}
+
+.high-contrast:not(.dark) .text-slate-600,
+.high-contrast:not(.dark) .text-slate-500,
+.high-contrast:not(.dark) .text-slate-400 {
+  color: var(--hc-text-secondary-light) !important;
+}
+
+.high-contrast:not(.dark) .border-slate-200,
+.high-contrast:not(.dark) .border-slate-300,
+.high-contrast:not(.dark) .border-slate-700,
+.high-contrast:not(.dark) .border-slate-800 {
+  border-color: var(--hc-border) !important;
+  border-width: 2px !important;
+}
+
+/* Dark mode high contrast */
+.high-contrast.dark {
+  background-color: var(--hc-bg-dark) !important;
+  color: var(--hc-text-dark) !important;
+}
+
+.high-contrast.dark .bg-slate-900,
+.high-contrast.dark .bg-slate-950,
+.high-contrast.dark .bg-slate-800 {
+  background-color: var(--hc-bg-dark) !important;
+}
+
+.high-contrast.dark .bg-slate-50,
+.high-contrast.dark .bg-white,
+.high-contrast.dark .bg-slate-100 {
+  background-color: var(--hc-surface-dark) !important;
+}
+
+.high-contrast.dark .text-white,
+.high-contrast.dark .text-slate-100,
+.high-contrast.dark .text-slate-200,
+.high-contrast.dark .text-slate-300 {
+  color: var(--hc-text-dark) !important;
+}
+
+.high-contrast.dark .text-slate-400,
+.high-contrast.dark .text-slate-500,
+.high-contrast.dark .text-slate-600 {
+  color: var(--hc-text-secondary-dark) !important;
+}
+
+.high-contrast.dark .border-slate-700,
+.high-contrast.dark .border-slate-800,
+.high-contrast.dark .border-slate-200,
+.high-contrast.dark .border-slate-300 {
+  border-color: var(--hc-border-dark) !important;
+  border-width: 2px !important;
+}
+
+/* Primary color overrides - maintains semantic meaning */
+/* NOTE: High contrast mode intentionally overrides theme colors for accessibility */
+.high-contrast .bg-teal-500,
+.high-contrast .bg-teal-600,
+.high-contrast .bg-primary {
+  background-color: var(--hc-primary) !important;
+  color: var(--hc-text-dark) !important;
+}
+
+.high-contrast .text-teal-500,
+.high-contrast .text-teal-600,
+.high-contrast .text-primary {
+  color: var(--hc-primary) !important;
+}
+
+/* Buttons - clear, high contrast styling */
+.high-contrast button {
+  border: 2px solid currentColor !important;
+  font-weight: 600 !important;
+  min-height: 44px !important; /* Better touch target */
+}
+
+.high-contrast button:not(:disabled):hover {
+  outline: 3px solid currentColor !important;
+  outline-offset: 2px;
+}
+
+.high-contrast button:disabled {
+  opacity: 0.5 !important;
+  border-style: dashed !important;
+}
+
+/* Primary action buttons */
+.high-contrast button.bg-gradient-to-r,
+.high-contrast button.bg-teal-500,
+.high-contrast button.bg-teal-600,
+.high-contrast button.bg-primary {
+  background: var(--hc-primary) !important;
+  color: var(--hc-text-dark) !important;
+  border-color: var(--hc-primary-dark) !important;
+}
+
+.high-contrast button.bg-gradient-to-r:hover,
+.high-contrast button.bg-teal-500:hover,
+.high-contrast button.bg-teal-600:hover {
+  background: var(--hc-primary-dark) !important;
+  outline: 3px solid var(--hc-accent) !important;
+}
+
+/* Links */
+.high-contrast a {
+  color: var(--hc-primary) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+  font-weight: 600 !important;
+}
+
+.high-contrast a:hover,
+.high-contrast a:focus {
+  outline: 3px solid var(--hc-accent) !important;
+  outline-offset: 2px;
+}
+
+/* Form inputs */
+.high-contrast input,
+.high-contrast textarea,
+.high-contrast select {
+  border: 3px solid currentColor !important;
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 8px 12px !important;
+}
+
+.high-contrast input:focus,
+.high-contrast textarea:focus,
+.high-contrast select:focus {
+  outline: 4px solid var(--hc-accent) !important;
+  outline-offset: 2px;
+  border-color: var(--hc-primary) !important;
+}
+
+/* Cards and containers */
+.high-contrast .bg-white\/50,
+.high-contrast .bg-slate-800\/50,
+.high-contrast .bg-slate-100\/80,
+.high-contrast .bg-slate-900\/80 {
+  background-color: var(--hc-surface-light) !important;
+}
+
+.high-contrast.dark .bg-white\/50,
+.high-contrast.dark .bg-slate-800\/50,
+.high-contrast.dark .bg-slate-100\/80,
+.high-contrast.dark .bg-slate-900\/80 {
+  background-color: var(--hc-surface-dark) !important;
+}
+
+/* Remove gradients in high contrast */
+.high-contrast .bg-gradient-to-r,
+.high-contrast .bg-gradient-to-br,
+.high-contrast .bg-gradient-to-tr {
+  background: var(--hc-primary) !important;
+}
+
+/* Icons - ensure visibility */
+.high-contrast svg {
+  stroke-width: 2 !important;
+}
+
+.high-contrast .text-slate-400 svg,
+.high-contrast .text-slate-500 svg {
+  color: inherit !important;
+}
+
+/* Focus indicators - highly visible */
+.high-contrast *:focus-visible {
+  outline: 4px solid var(--hc-accent) !important;
+  outline-offset: 3px !important;
+  border-radius: 2px;
+}
+
+.high-contrast button:focus-visible,
+.high-contrast a:focus-visible {
+  outline: 4px solid var(--hc-accent) !important;
+  outline-offset: 3px !important;
+}
+
+/* Remove shadows and blur effects for clarity */
+.high-contrast * {
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.high-contrast .backdrop-blur-md {
+  background-color: var(--hc-surface-light) !important;
+}
+
+.high-contrast.dark .backdrop-blur-md {
+  background-color: var(--hc-surface-dark) !important;
+}
+
+/* Success, error, warning states */
+.high-contrast .bg-rose-500,
+.high-contrast .text-rose-500,
+.high-contrast .border-rose-500 {
+  background-color: var(--hc-error) !important;
+  color: var(--hc-text-dark) !important;
+  border-color: var(--hc-error) !important;
+}
+
+.high-contrast .bg-green-500,
+.high-contrast .text-green-500 {
+  color: var(--hc-success) !important;
+  background-color: var(--hc-success) !important;
+  color: var(--hc-text-dark) !important;
+}
+
+/* Headings - maintain hierarchy */
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3 {
+  font-weight: 700 !important;
+  color: inherit !important;
+}
+
+.high-contrast h1 {
+  font-size: 2rem !important;
+  border-bottom: 3px solid currentColor !important;
+  padding-bottom: 8px;
+}
+
+.high-contrast h2 {
+  font-size: 1.5rem !important;
+}
+
+/* Theme Color Overrides - Apply theme CSS variables to hardcoded Tailwind classes */
+/* Only apply when NOT in high contrast mode */
+:root:not(.high-contrast) .bg-teal-500 {
+  background-color: var(--theme-primary) !important;
+}
+
+:root:not(.high-contrast) .bg-teal-600 {
+  background-color: var(--theme-primary-dark) !important;
+}
+
+:root:not(.high-contrast) .text-teal-500 {
+  color: var(--theme-primary) !important;
+}
+
+:root:not(.high-contrast) .text-teal-600 {
+  color: var(--theme-primary-dark) !important;
+}
+
+:root:not(.high-contrast) .text-teal-400 {
+  color: var(--theme-primary-light) !important;
+}
+
+:root:not(.high-contrast) .border-teal-500 {
+  border-color: var(--theme-primary) !important;
+}
+
+/* Opacity variants */
+:root:not(.high-contrast) .bg-teal-500\/10 {
+  background-color: color-mix(in srgb, var(--theme-primary) 10%, transparent) !important;
+}
+
+:root:not(.high-contrast) .bg-teal-500\/20 {
+  background-color: color-mix(in srgb, var(--theme-primary) 20%, transparent) !important;
+}
+
+:root:not(.high-contrast) .bg-teal-600\/50 {
+  background-color: color-mix(in srgb, var(--theme-primary-dark) 50%, transparent) !important;
+}
+
+/* Gradient overrides - replace teal gradients with theme gradients */
+:root:not(.high-contrast) .from-teal-600.to-teal-500,
+:root:not(.high-contrast) [class*="from-teal-600"][class*="to-teal-500"] {
+  background-image: linear-gradient(to right, var(--theme-primary-dark), var(--theme-primary)) !important;
+}
+
+:root:not(.high-contrast) .from-teal-500.to-teal-400 {
+  background-image: linear-gradient(to right, var(--theme-primary), var(--theme-primary-light)) !important;
+}
+
