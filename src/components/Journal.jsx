@@ -7,7 +7,7 @@ import { getAutoSaveManager } from '../utils/autoSave'
 import { updateStreak, getAllCurrentStreaks, getTotalActiveDays } from '../utils/streaks'
 import { checkAchievements } from '../utils/achievements'
 
-const Journal = ({ t, isDark, addEntry, entries = [] }) => {
+const Journal = ({ t, isDark, addEntry, entries = [], lang = 'en' }) => {
   const { toast } = useToast()
   const [showSuccess, setShowSuccess] = useState(false)
   const [hasDraft, setHasDraft] = useState(false)
@@ -24,7 +24,16 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
     tags: []
   })
 
+  const TAG_LABELS = {
+    en: ["Work", "Family", "Health", "Sleep", "News", "Finance", "Other"],
+    ua: ["Робота", "Сім\'я", "Здоров\'я", "Сон", "Новини", "Фінанси", "Інше"]
+  }
   const availableTags = ["Work", "Family", "Health", "Sleep", "News", "Finance", "Other"]
+  const getTagLabel = (tag) => {
+    const index = availableTags.indexOf(tag)
+    if (lang === 'ua' && index >= 0) return TAG_LABELS.ua[index]
+    return tag
+  }
 
   // Smart tag suggestions based on trigger text
   const suggestedTags = useMemo(() => {
@@ -109,7 +118,7 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
         tags: draft.tags || []
       })
       setShowDraftRestore(false)
-      toast.info('Draft restored')
+      toast.info(lang === 'en' ? 'Draft restored' : 'Чернетку відновлено')
     }
   }
 
@@ -145,7 +154,7 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
     // Check for achievements
     const streaks = getAllCurrentStreaks()
     const totalDays = getTotalActiveDays()
-    const newAchievements = checkAchievements(streaks, totalDays)
+    const newAchievements = checkAchievements(streaks, totalDays, lang)
     
     if (newAchievements.length > 0) {
       newAchievements.forEach(achievement => {
@@ -183,27 +192,27 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white tracking-tight">
             {t.journal.title}
           </h2>
           {hasDraft && (
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <Clock className="w-4 h-4" />
-              <span>Draft saved</span>
+              <span>{lang === 'en' ? 'Draft saved' : 'Чернетку збережено'}</span>
             </div>
           )}
         </div>
-        <p className="text-slate-600 dark:text-slate-400">
+        <p className="text-sm text-slate-500 dark:text-slate-400 tracking-tight">
           {t.journal.desc}
         </p>
       </div>
 
       {/* Draft Restore Banner */}
       {showDraftRestore && (
-        <div className="mb-4 p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+        <div className="mb-4 p-3 glass-card border-l-[3px] border-l-blue-500" style={{ borderLeft: '3px solid #3b82f6' }}>
           <div className="flex items-center justify-between">
             <p className="text-sm text-blue-700 dark:text-blue-300">
-              You have a saved draft. Would you like to restore it?
+              {lang === 'en' ? 'You have a saved draft. Would you like to restore it?' : 'Є збережена чернетка. Відновити?'}
             </p>
             <div className="flex gap-2 ml-4">
               <button
@@ -211,14 +220,14 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
                 onClick={handleRestoreDraft}
                 className="px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
               >
-                Restore
+                {lang === 'en' ? 'Restore' : 'Відновити'}
               </button>
               <button
                 type="button"
                 onClick={handleDiscardDraft}
                 className="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
               >
-                Discard
+                {lang === 'en' ? 'Discard' : 'Видалити'}
               </button>
             </div>
           </div>
@@ -231,14 +240,14 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
           htmlFor="trigger" 
           className="block text-sm font-semibold text-rose-500 dark:text-rose-400 mb-2"
         >
-          {t.journal.step1}
+          ① {t.journal.step1}
         </label>
         <textarea
           id="trigger"
           value={form.trigger}
           onChange={(e) => handleChange('trigger', e.target.value)}
           placeholder={t.journal.step1ph}
-          className="w-full h-24 p-4 rounded-xl resize-none bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 transition-colors"
+          className="w-full h-24 p-4 rounded-2xl resize-none bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-400 transition-all text-[15px]"
         />
       </div>
 
@@ -252,7 +261,7 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
         {suggestedTags.length > 0 && (
           <div className="mb-2">
             <p className="text-xs text-teal-600 dark:text-teal-400 mb-1">
-              {t.journal?.suggestedTags || 'Suggested based on your entry:'}
+              {t.journal?.suggestedTags || (lang === 'en' ? 'Suggested based on your entry:' : 'Пропозиції на основі запису:')}
             </p>
             <div className="flex flex-wrap gap-2">
               {suggestedTags.map((tag) => (
@@ -269,7 +278,7 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
                       }
                     `}
                   >
-                    {tag} {form.tags.includes(tag) && '✓'}
+                    {getTagLabel(tag)} {form.tags.includes(tag) && '✓'}
                   </button>
                 )
               ))}
@@ -281,7 +290,7 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
         {frequentTags.length > 0 && suggestedTags.length === 0 && (
           <div className="mb-2">
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
-              {t.journal?.frequentTags || 'Your most used:'}
+              {t.journal?.frequentTags || (lang === 'en' ? 'Your most used:' : 'Найчастіше використовувані:')}
             </p>
             <div className="flex flex-wrap gap-2">
               {frequentTags.map((tag) => (
@@ -292,7 +301,7 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
                     onClick={() => toggleTag(tag)}
                     className="px-4 py-2 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                   >
-                    {tag}
+                    {getTagLabel(tag)}
                   </button>
                 )
               ))}
@@ -310,12 +319,12 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
               className={`
                 px-4 py-2 rounded-full text-sm font-medium transition-all
                 ${form.tags.includes(tag)
-                  ? 'bg-teal-500 text-white shadow-md'
-                  : 'bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300'
+                  ? 'bg-teal-500 text-white shadow-md shadow-teal-500/20'
+                  : 'bg-slate-100/80 dark:bg-white/8 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-white/12'
                 }
               `}
             >
-              {tag}
+              {getTagLabel(tag)}
             </button>
           ))}
         </div>
@@ -327,14 +336,14 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
           htmlFor="thought" 
           className="block text-sm font-semibold text-indigo-500 dark:text-indigo-400 mb-2"
         >
-          {t.journal.step2}
+          ② {t.journal.step2}
         </label>
         <textarea
           id="thought"
           value={form.thought}
           onChange={(e) => handleChange('thought', e.target.value)}
           placeholder={t.journal.step2ph}
-          className="w-full h-24 p-4 rounded-xl resize-none bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-colors"
+          className="w-full h-24 p-4 rounded-2xl resize-none bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400 transition-all text-[15px]"
         />
       </div>
 
@@ -344,19 +353,19 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
           htmlFor="rational" 
           className="block text-sm font-semibold text-teal-500 dark:text-teal-400 mb-2"
         >
-          {t.journal.step3}
+          ③ {t.journal.step3}
         </label>
         <textarea
           id="rational"
           value={form.rational}
           onChange={(e) => handleChange('rational', e.target.value)}
           placeholder={t.journal.step3ph}
-          className="w-full h-24 p-4 rounded-xl resize-none bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-colors"
+          className="w-full h-24 p-4 rounded-2xl resize-none bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-400 transition-all text-[15px]"
         />
       </div>
 
       {/* Mood Slider */}
-      <div className="mb-8 p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-800/50">
+      <div className="mb-8 p-4 glass-card">
         <label 
           htmlFor="mood" 
           className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4"
@@ -382,7 +391,7 @@ const Journal = ({ t, isDark, addEntry, entries = [] }) => {
       {/* Save Button */}
       <button
         type="submit"
-        className="w-full py-4 rounded-2xl bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold text-lg shadow-xl transition-all transform hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl hover:from-teal-700 hover:to-teal-600 active:scale-95 flex items-center justify-center gap-2 mb-4"
+        className="w-full py-4 rounded-2xl bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold text-lg shadow-lg shadow-teal-500/20 transition-all transform hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-xl hover:from-teal-700 hover:to-teal-600 active:scale-[0.98] flex items-center justify-center gap-2 mb-4"
       >
         <Save className="w-5 h-5" />
         {t.journal.save}

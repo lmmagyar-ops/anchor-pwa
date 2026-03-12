@@ -17,7 +17,7 @@ function App() {
   })
   
   const [lang, setLang] = useState(() => {
-    return localStorage.getItem('anchor_lang') || 'en'
+    return localStorage.getItem('anchor_lang') || 'ua'
   })
 
   const handleEnter = () => {

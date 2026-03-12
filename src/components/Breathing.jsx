@@ -17,6 +17,7 @@ const BREATH_PATTERNS = {
   },
   'box': {
     name: 'Box Breathing',
+    nameUa: 'Коробкове',
     inhale: 4,
     hold: 4,
     exhale: 4,
@@ -25,6 +26,7 @@ const BREATH_PATTERNS = {
   },
   'resonant': {
     name: 'Resonant Breathing',
+    nameUa: 'Резонансне',
     inhale: 5,
     hold: 0,
     exhale: 5,
@@ -37,7 +39,7 @@ let audioContext = null
 let soundscapeSource = null
 let gainNode = null
 
-const Breathing = ({ t, isDark, onRefreshQuote }) => {
+const Breathing = ({ t, isDark, onRefreshQuote, lang = 'en' }) => {
   const { toast } = useToast()
   const [isActive, setIsActive] = useState(false)
   const sessionStartTimeRef = useRef(null)
@@ -199,7 +201,7 @@ const Breathing = ({ t, isDark, onRefreshQuote }) => {
         // Check for achievements
         const streaks = getAllCurrentStreaks()
         const totalDays = getTotalActiveDays()
-        const newAchievements = checkAchievements(streaks, totalDays)
+        const newAchievements = checkAchievements(streaks, totalDays, lang)
         
         if (newAchievements.length > 0) {
           newAchievements.forEach(achievement => {
@@ -279,7 +281,7 @@ const Breathing = ({ t, isDark, onRefreshQuote }) => {
 
   // Dynamic styles based on phase
   const getCircleStyles = () => {
-    const baseStyles = "w-48 h-48 rounded-full border-[6px] flex items-center justify-center transition-all"
+    const baseStyles = "w-56 h-56 rounded-full border-[3px] flex items-center justify-center transition-all"
     const { inhale, exhale } = currentPattern
     
     switch (phase) {
@@ -301,14 +303,14 @@ const Breathing = ({ t, isDark, onRefreshQuote }) => {
         }
       default:
         return {
-          className: `${baseStyles} scale-100 border-slate-300 dark:border-white/5`,
+          className: `${baseStyles} scale-100 border-slate-200 dark:border-slate-700/50`,
           style: {}
         }
     }
   }
 
   const getGlowStyles = () => {
-    const baseStyles = "absolute w-48 h-48 rounded-full blur-3xl transition-all"
+    const baseStyles = "absolute w-56 h-56 rounded-full blur-3xl transition-all"
     
     if (phase === 'idle') {
       return `${baseStyles} scale-50 opacity-0 bg-teal-500`
@@ -358,26 +360,26 @@ const Breathing = ({ t, isDark, onRefreshQuote }) => {
       </div>
 
       {/* Header with Settings Button - More compact */}
-      <div className="text-center mb-3 w-full relative">
-        {/* Settings Button - Positioned top-right, aligned with title */}
+      <div className="text-center mb-4 w-full relative">
+        {/* Settings Button */}
         <button
           onClick={() => setShowSettings(!showSettings)}
-          className="absolute top-1 right-0 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="absolute top-1 right-0 p-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 transition-all"
           aria-label="Settings"
         >
-          <Settings className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+          <Settings className="w-5 h-5" />
         </button>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-0.5 pr-10">
+        <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-1 pr-10 tracking-tight">
           {t.breathe.title}
         </h2>
-        <p className="text-xs text-slate-600 dark:text-slate-400">
+        <p className="text-sm text-slate-500 dark:text-slate-400 tracking-tight">
           {t.breathe.desc}
         </p>
       </div>
 
       {/* Settings Panel */}
       {showSettings && (
-        <div className="w-full max-w-md mb-4 p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        <div className="w-full max-w-md mb-4 p-4 glass-card">
           {/* Breath Pattern Selector */}
           <div className="mb-4">
             <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
@@ -390,11 +392,11 @@ const Breathing = ({ t, isDark, onRefreshQuote }) => {
                   onClick={() => setBreathPattern(key)}
                   className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                     breathPattern === key
-                      ? 'bg-teal-500 text-white'
-                      : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                      ? 'bg-teal-500 text-white shadow-md shadow-teal-500/20'
+                      : 'bg-slate-100/80 dark:bg-slate-700/60 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-600/60'
                   }`}
                 >
-                  {BREATH_PATTERNS[key].name}
+                  {(lang === 'ua' && BREATH_PATTERNS[key].nameUa) ? BREATH_PATTERNS[key].nameUa : BREATH_PATTERNS[key].name}
                 </button>
               ))}
             </div>
@@ -459,7 +461,7 @@ const Breathing = ({ t, isDark, onRefreshQuote }) => {
           role="img" 
           aria-label={text}
         >
-          <span className={`text-lg font-semibold uppercase tracking-widest ${getTextColor()}`}>
+          <span className={`text-base font-medium capitalize tracking-tight ${getTextColor()}`}>
             {text}
           </span>
         </div>
@@ -469,11 +471,11 @@ const Breathing = ({ t, isDark, onRefreshQuote }) => {
       <button
         onClick={toggleSession}
         className={`
-          px-8 py-3 rounded-2xl shadow-xl font-semibold text-lg mb-3
-          transition-all transform hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl active:scale-95
+          w-full max-w-xs py-4 rounded-2xl shadow-lg font-semibold text-lg mb-3
+          transition-all transform hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]
           ${isActive
             ? 'bg-slate-800 dark:bg-slate-700 text-slate-200 hover:bg-slate-700 dark:hover:bg-slate-600'
-            : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white hover:from-teal-700 hover:to-teal-600'
+            : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-teal-500/25 hover:from-teal-700 hover:to-teal-600'
           }
         `}
       >

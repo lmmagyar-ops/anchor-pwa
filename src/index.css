@@ -2,21 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme CSS Variables */
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
 :root {
   --theme-primary: #14b8a6;
   --theme-primary-dark: #0d9488;
   --theme-primary-light: #2dd4bf;
   --theme-accent: #6366f1;
+  --radius-card: 20px;
+  --radius-pill: 100px;
+  --apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --apple-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Safe area for iPhone notch */
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* ========================================
+   BASE STYLES
+   ======================================== */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.011em; /* Apple's default tracking for body */
 }
 
 #root {
@@ -24,7 +34,9 @@ body {
   min-height: 100vh;
 }
 
-/* Screen reader only class */
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -37,7 +49,37 @@ body {
   border-width: 0;
 }
 
-/* Respect reduced motion preferences */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid theme('colors.teal.500');
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.dark *:focus-visible {
+  outline-color: theme('colors.teal.400');
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: theme('colors.teal.600');
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -48,121 +90,142 @@ body {
   }
 }
 
-/* Micro-interactions for tab switching */
-.tab-content-enter {
-  opacity: 0;
-  transform: translateX(20px);
+/* ========================================
+   GLASS MORPHISM UTILITIES
+   ======================================== */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .dark .glass {
+    background: rgba(15, 23, 42, 0.75);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-card);
+    box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .glass-card {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.25);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .dark .glass-nav {
+    background: rgba(15, 23, 42, 0.85);
+    border-top-color: rgba(255, 255, 255, 0.06);
+  }
 }
 
-.tab-content-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms ease-out, transform 300ms ease-out;
-}
-
-.tab-content-exit {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.tab-content-exit-active {
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: opacity 300ms ease-in, transform 300ms ease-in;
-}
-
-/* Smooth tab transition wrapper */
+/* ========================================
+   TAB TRANSITIONS
+   ======================================== */
 .tab-transition-wrapper {
-  animation: fadeInSlide 300ms ease-out forwards;
+  animation: liftFadeIn 350ms var(--apple-spring) forwards;
 }
 
-@keyframes fadeInSlide {
+@keyframes liftFadeIn {
   from {
     opacity: 0;
-    transform: translateX(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-/* Smooth transitions for buttons and interactive elements */
+/* ========================================
+   INTERACTIVE ELEMENTS
+   ======================================== */
 button {
-  transition: all 0.2s ease;
+  transition: all 0.2s var(--apple-ease);
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
-/* Focus Management - Clear focus indicators for keyboard navigation */
-*:focus {
+/* Custom Range Slider — Apple-grade */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #e2e8f0;
   outline: none;
+  cursor: pointer;
 }
 
-*:focus-visible {
-  outline: 2px solid theme('colors.teal.500');
-  outline-offset: 2px;
-  border-radius: 4px;
+.dark input[type="range"] {
+  background: #334155;
 }
 
-.dark *:focus-visible {
-  outline-color: theme('colors.teal.400');
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
 }
 
-/* Skip to main content link */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: theme('colors.teal.600');
-  color: white;
-  padding: 8px 16px;
-  z-index: 100;
-  border-radius: 0 0 4px 0;
-  text-decoration: none;
-  font-weight: 600;
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.06);
 }
 
-.skip-link:focus {
-  top: 0;
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04);
+  cursor: pointer;
 }
 
-/* Focus Management - Clear focus indicators for keyboard navigation */
-*:focus {
-  outline: none;
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
 }
 
-*:focus-visible {
-  outline: 2px solid theme('colors.teal.500');
-  outline-offset: 2px;
-  border-radius: 4px;
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
 }
 
-.dark *:focus-visible {
-  outline-color: theme('colors.teal.400');
+/* Card hover lift */
+.hover-lift {
+  transition: transform 0.3s var(--apple-spring), box-shadow 0.3s ease;
 }
 
-/* Skip to main content link */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: theme('colors.teal.600');
-  color: white;
-  padding: 8px 16px;
-  z-index: 100;
-  border-radius: 0 0 4px 0;
-  text-decoration: none;
-  font-weight: 600;
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.12);
 }
 
-.skip-link:focus {
-  top: 0;
-}
-
-/* Toast animations */
+/* ========================================
+   TOAST & SUCCESS ANIMATIONS
+   ======================================== */
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
@@ -175,39 +238,30 @@ button:active {
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 0.3s ease-out forwards;
+  animation: slideInRight 0.3s var(--apple-spring) forwards;
 }
 
-/* Success animation keyframes */
 @keyframes bounceOnce {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 @keyframes scaleIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .animate-bounce-once {
-  animation: bounceOnce 0.6s ease-out;
+  animation: bounceOnce 0.6s var(--apple-spring);
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.3s ease-out forwards;
+  animation: scaleIn 0.3s var(--apple-spring) forwards;
 }
 
-/* CTA Button Glow & Shimmer Effects - Calming, subtle animations */
+/* ========================================
+   CTA BUTTON EFFECTS
+   ======================================== */
 .cta-glow-button {
   position: relative;
   animation: cta-glow-pulse 4s ease-in-out infinite;
@@ -215,16 +269,16 @@ button:active {
 
 @keyframes cta-glow-pulse {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(14, 184, 166, 0.3), 0 0 40px rgba(14, 184, 166, 0.2);
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.3), 0 0 40px rgba(14, 184, 166, 0.15);
   }
   50% {
-    box-shadow: 0 0 30px rgba(14, 184, 166, 0.4), 0 0 50px rgba(14, 184, 166, 0.25);
+    box-shadow: 0 0 30px rgba(14, 184, 166, 0.4), 0 0 50px rgba(14, 184, 166, 0.2);
   }
 }
 
 .cta-glow-button:hover {
   animation: none;
-  box-shadow: 0 0 35px rgba(14, 184, 166, 0.5), 0 0 70px rgba(14, 184, 166, 0.35), 0 0 100px rgba(14, 184, 166, 0.25);
+  box-shadow: 0 0 35px rgba(14, 184, 166, 0.5), 0 0 70px rgba(14, 184, 166, 0.3);
   transition: box-shadow 0.5s ease-out;
 }
 
@@ -234,16 +288,16 @@ button:active {
 
 @keyframes cta-glow-pulse-dark {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(14, 184, 166, 0.4), 0 0 40px rgba(14, 184, 166, 0.3);
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.4), 0 0 40px rgba(14, 184, 166, 0.25);
   }
   50% {
-    box-shadow: 0 0 30px rgba(14, 184, 166, 0.5), 0 0 50px rgba(14, 184, 166, 0.35);
+    box-shadow: 0 0 30px rgba(14, 184, 166, 0.5), 0 0 50px rgba(14, 184, 166, 0.3);
   }
 }
 
 .dark .cta-glow-button:hover {
   animation: none;
-  box-shadow: 0 0 35px rgba(14, 184, 166, 0.6), 0 0 70px rgba(14, 184, 166, 0.45), 0 0 100px rgba(14, 184, 166, 0.35);
+  box-shadow: 0 0 35px rgba(14, 184, 166, 0.6), 0 0 70px rgba(14, 184, 166, 0.4);
   transition: box-shadow 0.5s ease-out;
 }
 
@@ -259,33 +313,25 @@ button:active {
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-/* Respect reduced motion for CTA effects */
 @media (prefers-reduced-motion: reduce) {
-  .cta-shimmer {
-    animation: none;
-  }
-  
+  .cta-shimmer { animation: none; }
   .cta-glow-button {
     animation: none;
-    box-shadow: 0 0 20px rgba(14, 184, 166, 0.3), 0 0 40px rgba(14, 184, 166, 0.2);
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.3);
   }
-  
   .dark .cta-glow-button {
-    box-shadow: 0 0 20px rgba(14, 184, 166, 0.4), 0 0 40px rgba(14, 184, 166, 0.3);
+    box-shadow: 0 0 20px rgba(14, 184, 166, 0.4);
   }
 }
 
-/* High Contrast Mode - Enhanced WCAG AAA compliant */
+/* ========================================
+   HIGH CONTRAST MODE (WCAG AAA)
+   ======================================== */
 .high-contrast {
-  /* High contrast color palette - WCAG AAA compliant with better visual hierarchy */
   --hc-bg-light: #ffffff;
   --hc-bg-dark: #000000;
   --hc-surface-light: #f0f0f0;
@@ -304,7 +350,6 @@ button:active {
   --hc-warning: #ff8800;
 }
 
-/* Light mode high contrast */
 .high-contrast:not(.dark) {
   background-color: var(--hc-bg-light) !important;
   color: var(--hc-text-light) !important;
@@ -314,12 +359,6 @@ button:active {
 .high-contrast:not(.dark) .bg-white,
 .high-contrast:not(.dark) .bg-slate-100 {
   background-color: var(--hc-bg-light) !important;
-}
-
-.high-contrast:not(.dark) .bg-slate-900,
-.high-contrast:not(.dark) .bg-slate-950,
-.high-contrast:not(.dark) .bg-slate-800 {
-  background-color: var(--hc-surface-light) !important;
 }
 
 .high-contrast:not(.dark) .text-slate-900,
@@ -335,14 +374,11 @@ button:active {
 }
 
 .high-contrast:not(.dark) .border-slate-200,
-.high-contrast:not(.dark) .border-slate-300,
-.high-contrast:not(.dark) .border-slate-700,
-.high-contrast:not(.dark) .border-slate-800 {
+.high-contrast:not(.dark) .border-slate-300 {
   border-color: var(--hc-border) !important;
   border-width: 2px !important;
 }
 
-/* Dark mode high contrast */
 .high-contrast.dark {
   background-color: var(--hc-bg-dark) !important;
   color: var(--hc-text-dark) !important;
@@ -352,12 +388,6 @@ button:active {
 .high-contrast.dark .bg-slate-950,
 .high-contrast.dark .bg-slate-800 {
   background-color: var(--hc-bg-dark) !important;
-}
-
-.high-contrast.dark .bg-slate-50,
-.high-contrast.dark .bg-white,
-.high-contrast.dark .bg-slate-100 {
-  background-color: var(--hc-surface-dark) !important;
 }
 
 .high-contrast.dark .text-white,
@@ -374,33 +404,26 @@ button:active {
 }
 
 .high-contrast.dark .border-slate-700,
-.high-contrast.dark .border-slate-800,
-.high-contrast.dark .border-slate-200,
-.high-contrast.dark .border-slate-300 {
+.high-contrast.dark .border-slate-800 {
   border-color: var(--hc-border-dark) !important;
   border-width: 2px !important;
 }
 
-/* Primary color overrides - maintains semantic meaning */
-/* NOTE: High contrast mode intentionally overrides theme colors for accessibility */
 .high-contrast .bg-teal-500,
-.high-contrast .bg-teal-600,
-.high-contrast .bg-primary {
+.high-contrast .bg-teal-600 {
   background-color: var(--hc-primary) !important;
   color: var(--hc-text-dark) !important;
 }
 
 .high-contrast .text-teal-500,
-.high-contrast .text-teal-600,
-.high-contrast .text-primary {
+.high-contrast .text-teal-600 {
   color: var(--hc-primary) !important;
 }
 
-/* Buttons - clear, high contrast styling */
 .high-contrast button {
   border: 2px solid currentColor !important;
   font-weight: 600 !important;
-  min-height: 44px !important; /* Better touch target */
+  min-height: 44px !important;
 }
 
 .high-contrast button:not(:disabled):hover {
@@ -408,137 +431,43 @@ button:active {
   outline-offset: 2px;
 }
 
-.high-contrast button:disabled {
-  opacity: 0.5 !important;
-  border-style: dashed !important;
-}
-
-/* Primary action buttons */
-.high-contrast button.bg-gradient-to-r,
 .high-contrast button.bg-teal-500,
-.high-contrast button.bg-teal-600,
-.high-contrast button.bg-primary {
+.high-contrast button.bg-teal-600 {
   background: var(--hc-primary) !important;
   color: var(--hc-text-dark) !important;
   border-color: var(--hc-primary-dark) !important;
 }
 
-.high-contrast button.bg-gradient-to-r:hover,
-.high-contrast button.bg-teal-500:hover,
-.high-contrast button.bg-teal-600:hover {
-  background: var(--hc-primary-dark) !important;
-  outline: 3px solid var(--hc-accent) !important;
-}
-
-/* Links */
 .high-contrast a {
   color: var(--hc-primary) !important;
   text-decoration: underline !important;
-  text-underline-offset: 2px;
-  font-weight: 600 !important;
 }
 
-.high-contrast a:hover,
-.high-contrast a:focus {
-  outline: 3px solid var(--hc-accent) !important;
-  outline-offset: 2px;
-}
-
-/* Form inputs */
 .high-contrast input,
 .high-contrast textarea,
 .high-contrast select {
   border: 3px solid currentColor !important;
   background-color: transparent !important;
   color: inherit !important;
-  padding: 8px 12px !important;
 }
 
-.high-contrast input:focus,
-.high-contrast textarea:focus,
-.high-contrast select:focus {
-  outline: 4px solid var(--hc-accent) !important;
-  outline-offset: 2px;
-  border-color: var(--hc-primary) !important;
-}
-
-/* Cards and containers */
-.high-contrast .bg-white\/50,
-.high-contrast .bg-slate-800\/50,
-.high-contrast .bg-slate-100\/80,
-.high-contrast .bg-slate-900\/80 {
-  background-color: var(--hc-surface-light) !important;
-}
-
-.high-contrast.dark .bg-white\/50,
-.high-contrast.dark .bg-slate-800\/50,
-.high-contrast.dark .bg-slate-100\/80,
-.high-contrast.dark .bg-slate-900\/80 {
-  background-color: var(--hc-surface-dark) !important;
-}
-
-/* Remove gradients in high contrast */
-.high-contrast .bg-gradient-to-r,
-.high-contrast .bg-gradient-to-br,
-.high-contrast .bg-gradient-to-tr {
-  background: var(--hc-primary) !important;
-}
-
-/* Icons - ensure visibility */
-.high-contrast svg {
-  stroke-width: 2 !important;
-}
-
-.high-contrast .text-slate-400 svg,
-.high-contrast .text-slate-500 svg {
-  color: inherit !important;
-}
-
-/* Focus indicators - highly visible */
-.high-contrast *:focus-visible {
-  outline: 4px solid var(--hc-accent) !important;
-  outline-offset: 3px !important;
-  border-radius: 2px;
-}
-
-.high-contrast button:focus-visible,
-.high-contrast a:focus-visible {
-  outline: 4px solid var(--hc-accent) !important;
-  outline-offset: 3px !important;
-}
-
-/* Remove shadows and blur effects for clarity */
 .high-contrast * {
   box-shadow: none !important;
   filter: none !important;
   backdrop-filter: none !important;
 }
 
-.high-contrast .backdrop-blur-md {
-  background-color: var(--hc-surface-light) !important;
+.high-contrast *:focus-visible {
+  outline: 4px solid var(--hc-accent) !important;
+  outline-offset: 3px !important;
 }
 
-.high-contrast.dark .backdrop-blur-md {
-  background-color: var(--hc-surface-dark) !important;
-}
-
-/* Success, error, warning states */
 .high-contrast .bg-rose-500,
-.high-contrast .text-rose-500,
-.high-contrast .border-rose-500 {
+.high-contrast .text-rose-500 {
   background-color: var(--hc-error) !important;
   color: var(--hc-text-dark) !important;
-  border-color: var(--hc-error) !important;
 }
 
-.high-contrast .bg-green-500,
-.high-contrast .text-green-500 {
-  color: var(--hc-success) !important;
-  background-color: var(--hc-success) !important;
-  color: var(--hc-text-dark) !important;
-}
-
-/* Headings - maintain hierarchy */
 .high-contrast h1,
 .high-contrast h2,
 .high-contrast h3 {
@@ -546,18 +475,9 @@ button:active {
   color: inherit !important;
 }
 
-.high-contrast h1 {
-  font-size: 2rem !important;
-  border-bottom: 3px solid currentColor !important;
-  padding-bottom: 8px;
-}
-
-.high-contrast h2 {
-  font-size: 1.5rem !important;
-}
-
-/* Theme Color Overrides - Apply theme CSS variables to hardcoded Tailwind classes */
-/* Only apply when NOT in high contrast mode */
+/* ========================================
+   THEME COLOR OVERRIDES
+   ======================================== */
 :root:not(.high-contrast) .bg-teal-500 {
   background-color: var(--theme-primary) !important;
 }
@@ -582,7 +502,6 @@ button:active {
   border-color: var(--theme-primary) !important;
 }
 
-/* Opacity variants */
 :root:not(.high-contrast) .bg-teal-500\/10 {
   background-color: color-mix(in srgb, var(--theme-primary) 10%, transparent) !important;
 }
@@ -595,7 +514,6 @@ button:active {
   background-color: color-mix(in srgb, var(--theme-primary-dark) 50%, transparent) !important;
 }
 
-/* Gradient overrides - replace teal gradients with theme gradients */
 :root:not(.high-contrast) .from-teal-600.to-teal-500,
 :root:not(.high-contrast) [class*="from-teal-600"][class*="to-teal-500"] {
   background-image: linear-gradient(to right, var(--theme-primary-dark), var(--theme-primary)) !important;
@@ -604,4 +522,3 @@ button:active {
 :root:not(.high-contrast) .from-teal-500.to-teal-400 {
   background-image: linear-gradient(to right, var(--theme-primary), var(--theme-primary-light)) !important;
 }
-

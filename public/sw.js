@@ -1,5 +1,5 @@
 // Service Worker for Anchor PWA - Offline Support
-const CACHE_VERSION = 'anchor-v1.0.0'
+const CACHE_VERSION = 'anchor-v1.1.0'
 const CACHE_NAME = `anchor-${CACHE_VERSION}`
 
 // Static assets to cache on install

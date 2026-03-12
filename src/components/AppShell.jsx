@@ -14,8 +14,7 @@ import {
   Heart,
   X,
   ChevronRight,
-  ChevronLeft,
-  Contrast
+  ChevronLeft
 } from 'lucide-react'
 import Breathing from './Breathing'
 import SOS from './SOS'
@@ -163,129 +162,129 @@ const translations = {
   },
   ua: {
     nav: {
-      breathe: "Дихати",
+      breathe: "Дихання",
       sos: "SOS",
-      journal: "Уточнити",
-      history: "Інсайт",
-      connect: "Зв'язатися",
-      pmr: "Розслаблення"
+      journal: "Щоденник",
+      history: "Прогрес",
+      connect: "Підтримка",
+      pmr: "Релакс"
     },
-    brand: "Якір",
+    brand: "Anchor",
     enter: "Увійти",
     breathe: {
       title: "Дихання 4-7-8",
-      desc: "Вдихніть на 4, Затримайте на 7, Видихніть на 8...",
+      desc: "Вдих на 4, затримка на 7, видих на 8...",
       inhale: "Вдих...",
-      hold: "Затримайте...",
+      hold: "Тримай...",
       exhale: "Видих...",
-      start: "Почати сесію",
-      stop: "Закінчити сесію",
-      complete: "Сесія завершена. Молодець.",
-      pattern: "Паттерн дихання",
-      haptic: "Тактильний зворотний зв'язок",
+      start: "Розпочати",
+      stop: "Завершити",
+      complete: "Чудово! Сесію завершено.",
+      pattern: "Техніка дихання",
+      haptic: "Вібровідгук",
       soundscape: "Фонові звуки"
     },
     sos: {
       title: "Заземлення (5-4-3-2-1)",
-      desc: "Давайте зупинимо паніку. Подивіться навколо і знайдіть:",
-      step1: "5 речей, які ви бачите",
-      step2: "4 речі, які ви можете відчути",
-      step3: "3 речі, які ви чуєте",
-      step4: "2 речі, які ви відчуваєте запах",
-      step5: "1 річ, яку ви можете скуштувати",
-      done: "Я знайшов їх",
-      reset: "Почати спочатку",
-      crisis: "Потрібна негайна допомога? Натисніть тут для ресурсів."
+      desc: "Зупинімо паніку. Озирнись і знайди:",
+      step1: "5 речей, які ти бачиш",
+      step2: "4 речі, яких можеш торкнутися",
+      step3: "3 звуки, які чуєш",
+      step4: "2 запахи, які відчуваєш",
+      step5: "1 смак, який можеш розпізнати",
+      done: "Знайшов — далі",
+      reset: "Спочатку",
+      crisis: "Потрібна термінова допомога? Натисни тут."
     },
     journal: {
-      title: "Давайте переосмислимо",
-      desc: "Оскаржуйте негативні думки. Запишіть те, що вас турбує.",
-      step1: "Тригер",
-      step1ph: "Що сталося?",
-      step2: "Негативна думка",
-      step2ph: "Що ви собі говорите?",
-      step3: "Раціональна відповідь",
-      step3ph: "Який більш збалансований погляд?",
-      emotion: "Інтенсивність емоцій (1-10)",
-      tags: "З чим це пов'язано?",
-      save: "Зберегти запис",
-      saveSuccess: "Запис успішно збережено!"
+      title: "Переосмислення",
+      desc: "Запиши, що тебе турбує, і подивись на це інакше.",
+      step1: "Що сталося?",
+      step1ph: "Опиши ситуацію...",
+      step2: "Що ти собі кажеш?",
+      step2ph: "Яка думка з'явилась?",
+      step3: "А як насправді?",
+      step3ph: "Спробуй подивитися збоку...",
+      emotion: "Сила емоцій (1-10)",
+      tags: "До чого це стосується?",
+      save: "Зберегти",
+      saveSuccess: "Запис збережено!"
     },
     history: {
-      title: "Ваш прогрес",
-      chartTitle: "Тенденції настрою",
-      calendarTitle: "Теплокарта послідовності",
-      patternsTitle: "Аналіз патернів",
-      empty: "Поки що немає записів. Почніть вести щоденник, щоб відстежувати свій розвиток.",
-      emptyTitle: "Почніть свою подорож",
-      startJournaling: "Почати вести щоденник",
-      emptyTip: "Порада: Ведення щоденника допомагає відстежувати патерни та святкувати прогрес",
-      export: "Створити PDF-звіт",
-      backup: "Резервна копія у файл",
-      backupSuccess: "Резервну копію успішно завантажено!",
+      title: "Твій прогрес",
+      chartTitle: "Як змінюється настрій",
+      calendarTitle: "Календар активності",
+      patternsTitle: "Що впливає на настрій",
+      empty: "Записів поки немає. Почни вести щоденник — і ти побачиш свій прогрес.",
+      emptyTitle: "Почни свій шлях",
+      startJournaling: "Зробити перший запис",
+      emptyTip: "Порада: щоденник допомагає помічати закономірності й бачити зміни",
+      export: "Зберегти як PDF",
+      backup: "Створити копію",
+      backupSuccess: "Копію збережено!",
       restore: "Відновити з файлу",
-      restoreConfirm: "Це замінить ваші поточні записи. Продовжити?",
-      restoreSuccess: "Записи успішно відновлено!",
-      restoreError: "Помилка читання файлу резервної копії. Перевірте формат файлу.",
+      restoreConfirm: "Це замінить усі поточні записи. Продовжити?",
+      restoreSuccess: "Записи відновлено!",
+      restoreError: "Не вдалося прочитати файл. Перевір формат.",
       copied: "Скопійовано!",
-      delete: "Очистити історію",
-      confirm: "Натисніть для підтвердження"
+      delete: "Очистити все",
+      confirm: "Натисни ще раз"
     },
     connect: {
       title: "Потрібна глибша підтримка?",
-      role: "Клінічний психолог",
-      greeting: "Привіт, я Вікторія. Я допомагаю людям подолати тривогу та розвинути стійкість.",
-      testimonial: "\"Нарешті я почуваюся почутою і зрозумілою без необхідності пояснювати свою культуру.\"",
-      cta: "Записатися на безкоштовну консультацію",
-      secondary: "Задати питання",
-      safety: "100% Конфіденційно та безпечно",
+      role: "Клінічна психологиня",
+      greeting: "Привіт, я Вікторія. Допомагаю людям впоратися з тривогою та стати стійкішими.",
+      testimonial: "\"Нарешті я почуваюся почутою — без потреби пояснювати свою культуру.\"",
+      cta: "Записатися на безкоштовну розмову",
+      secondary: "Написати питання",
+      safety: "100% конфіденційно",
       faqTitle: "Часті запитання",
       faqs: [
-        { q: "Що відбувається на консультації?", a: "Ми спілкуємося 15 хвилин, щоб подивитися, чи ми підходимо один одному. Без тиску на запис." },
-        { q: "Це конфіденційно?", a: "Абсолютно. Все, про що ми говоримо, захищено професійною етикою." },
-        { q: "Ви працюєте онлайн?", a: "Так, я пропоную безпечні відео-сесії, тому ви можете приєднатися звідки завгодно." }
+        { q: "Як проходить перша розмова?", a: "Ми поспілкуємося 15 хвилин, щоб зрозуміти, чи підходимо одне одному. Без жодних зобов'язань." },
+        { q: "Це конфіденційно?", a: "Так, абсолютно. Усе, що ми обговорюємо, захищено професійною етикою." },
+        { q: "Ви працюєте онлайн?", a: "Так, я проводжу сесії по відеозв'язку — можеш приєднатися з будь-де." }
       ]
     },
     quickExit: "Швидкий вихід",
     passcode: {
-      title: "Введіть код",
-      desc: "Введіть ваш 4-значний код",
-      setupTitle: "Встановити код",
-      setupDesc: "Створіть 4-значний код для захисту вашого щоденника",
+      title: "Введи код",
+      desc: "Введи 4-значний код доступу",
+      setupTitle: "Створи код",
+      setupDesc: "Придумай 4-значний код для захисту щоденника",
       error: "Неправильний код",
       disable: "Вимкнути блокування",
-      disableConfirm: "Ви впевнені, що хочете вимкнути блокування?"
+      disableConfirm: "Точно вимкнути блокування?"
     },
     pmr: {
-      title: "Розслабтеся з метою",
-      desc: "Напружуйте та розслабляйте групи м'язів для зняття напруги",
-      ready: "Готові почати? Натисніть 'Почати сесію', щоб розпочати вправу.",
-      tense: "Напружте",
-      relax: "Розслабте",
-      start: "Почати сесію",
+      title: "Розслаблення з фокусом",
+      desc: "Напруж і відпусти м'язи — відчуй різницю",
+      ready: "Готово? Натисни «Розпочати», щоб почати вправу.",
+      tense: "Напруж",
+      relax: "Відпусти",
+      start: "Розпочати",
       next: "Далі",
       previous: "Назад",
-      complete: "Завершити",
-      nextTense: "Далі: Напружте",
+      complete: "Готово",
+      nextTense: "Далі: напруження",
       relaxing: "Розслаблення...",
       feet: "Стопи та литки",
-      tenseFeet: "Напружте стопи та литки, витягнувши носки. Тримайте 5 секунд.",
-      relaxFeet: "Розслабте і відчуйте, як напруга відступає. Відпочиньте 10 секунд.",
+      tenseFeet: "Витягни носки й напруж стопи та литки. Тримай 5 секунд.",
+      relaxFeet: "Відпусти — відчуй, як напруга йде. Відпочинь 10 секунд.",
       thighs: "Стегна та сідниці",
-      tenseThighs: "Напружте стегна та сідниці, стиснувши їх міцно. Тримайте 5 секунд.",
-      relaxThighs: "Розслабте і помітьте різницю. Відпочиньте 10 секунд.",
+      tenseThighs: "Стисни стегна й сідниці якомога сильніше. Тримай 5 секунд.",
+      relaxThighs: "Відпусти й відчуй різницю. Відпочинь 10 секунд.",
       hands: "Руки та кисті",
-      tenseHands: "Стисніть кулаки і напружте руки. Тримайте 5 секунд.",
-      relaxHands: "Розслабте і дозвольте рукам обвиснути. Відпочиньте 10 секунд.",
-      stomach: "Живіт та кор",
-      tenseStomach: "Напружте м'язи живота та кер. Тримайте 5 секунд.",
-      relaxStomach: "Розслабте і дихайте глибоко. Відпочиньте 10 секунд.",
+      tenseHands: "Стисни кулаки й напруж руки. Тримай 5 секунд.",
+      relaxHands: "Розслаб руки повністю. Відпочинь 10 секунд.",
+      stomach: "Живіт",
+      tenseStomach: "Напруж м'язи живота. Тримай 5 секунд.",
+      relaxStomach: "Відпусти й глибоко вдихни. Відпочинь 10 секунд.",
       shoulders: "Плечі та шия",
-      tenseShoulders: "Підніміть плечі до вух. Тримайте 5 секунд.",
-      relaxShoulders: "Опустіть їх і відчуйте розслаблення. Відпочиньте 10 секунд.",
+      tenseShoulders: "Підніми плечі до вух. Тримай 5 секунд.",
+      relaxShoulders: "Різко опусти — відчуй полегшення. Відпочинь 10 секунд.",
       face: "Обличчя та щелепа",
-      tenseFace: "Скрутіть обличчя і стисніть щелепу. Тримайте 5 секунд.",
-      relaxFace: "Розслабте і дозвольте обличчю стати повністю м'яким. Відпочиньте 10 секунд."
+      tenseFace: "Зморщ обличчя й стисни щелепу. Тримай 5 секунд.",
+      relaxFace: "Повністю розслаб обличчя. Відпочинь 10 секунд."
     }
   }
 }
@@ -302,13 +301,13 @@ const dailyQuotes = {
     "Peace is not the absence of chaos, but finding calm within it."
   ],
   ua: [
-    "Твоє дихання завжди з тобою. Використовуй його як якір.",
-    "У цю мить ти в безпеці. У цю мить ти достатній.",
-    "Твоє тіло - твій дім. Заземися в ньому.",
-    "Тривога - це хвиля. Ти - океан.",
-    "Одне дихання за раз, один момент за раз.",
-    "Ти пережив 100% своїх найгірших днів. Ти зможеш це зробити.",
-    "Спокій - це не відсутність хаосу, а знаходження спокою всередині нього."
+    "Твоє дихання завжди з тобою. Воно — твій якір.",
+    "Просто зараз ти в безпеці. Просто зараз — цього досить.",
+    "Твоє тіло — твій дім. Повертайся до нього.",
+    "Тривога — це хвиля. А ти — океан.",
+    "Один вдих. Один момент. Крок за кроком.",
+    "Ти пережив усі свої найважчі дні. Впораєшся і з цим.",
+    "Спокій — це не відсутність хаосу, а тиша всередині нього."
   ]
 }
 
@@ -330,69 +329,59 @@ const TopHeader = ({ isDark, toggleTheme, lang, toggleLang, t, onQuickExit, high
   }
 
   return (
-    <header className="sticky top-0 z-20 backdrop-blur-md bg-slate-100/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+    <header className="sticky top-0 z-20 glass">
       <div className="flex items-center justify-between px-4 py-3">
         {/* Brand - Clickable Logo */}
         <button
           onClick={handleLogoClick}
-          className="flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-teal-500/50 rounded-lg px-1 -ml-1"
+          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-teal-500/50 rounded-xl px-1 -ml-1"
           aria-label="Go to landing page"
         >
-          <div className="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-md shadow-teal-500/20">
             <AnchorIcon className="w-5 h-5 text-white" />
           </div>
-          <span className="font-semibold text-slate-900 dark:text-white">
+          <span className="font-semibold text-slate-800 dark:text-white tracking-tight">
             {t.brand}
           </span>
         </button>
 
         {/* Right Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           {/* Quick Exit Button - Small, always accessible */}
           <button
             onClick={handleQuickExit}
-            className="px-2 py-1 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+            className="p-2.5 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 transition-all"
             aria-label={t.quickExit}
             title={t.quickExit}
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-[18px] h-[18px]" />
           </button>
 
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+            className="p-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 transition-all"
             aria-label="Toggle theme"
           >
             {isDark ? (
-              <Sun className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+              <Sun className="w-[18px] h-[18px]" />
             ) : (
-              <Moon className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+              <Moon className="w-[18px] h-[18px]" />
             )}
           </button>
 
-          {/* High Contrast Toggle */}
-          <button
-            onClick={toggleHighContrast}
-            className={`p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors ${
-              highContrast ? 'bg-teal-500/20' : ''
-            }`}
-            aria-label="Toggle high contrast mode"
-            title={highContrast ? 'High contrast enabled' : 'Enable high contrast'}
-          >
-            <Contrast className={`w-5 h-5 ${highContrast ? 'text-teal-500' : 'text-slate-700 dark:text-slate-300'}`} />
-          </button>
-
-          {/* Theme Selector */}
+          {/* Theme Selector (includes contrast toggle) */}
           <ThemeSelector 
             isDark={isDark}
             onThemeChange={(theme) => setCurrentTheme(theme)}
+            highContrast={highContrast}
+            toggleHighContrast={toggleHighContrast}
           />
 
           {/* Language Toggle */}
           <button
             onClick={toggleLang}
-            className="px-3 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+            className="ml-1 px-3 py-1.5 rounded-full text-sm font-semibold tracking-tight transition-all bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/50 dark:border-slate-700/50"
           >
             {lang === 'en' ? 'UA' : 'EN'}
           </button>
@@ -414,9 +403,9 @@ const BottomNav = ({ activeTab, setActiveTab, t, isDark }) => {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 pb-8 px-4 z-20">
-      <div className="max-w-md mx-auto">
-        <div className="rounded-3xl backdrop-blur-md bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-lg p-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-20" style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}>
+      <div className="max-w-md mx-auto px-4">
+        <div className="glass-nav rounded-3xl shadow-glass p-1.5">
           <div className="flex items-center justify-around">
             {navItems.map(({ id, icon: Icon, label }) => {
               const isActive = activeTab === id
@@ -424,15 +413,15 @@ const BottomNav = ({ activeTab, setActiveTab, t, isDark }) => {
                 <button
                   key={id}
                   onClick={() => setActiveTab(id)}
-                  className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all ${
+                  className={`flex flex-col items-center gap-0.5 py-2 px-3 rounded-2xl transition-all duration-300 ${
                     isActive
-                      ? 'text-teal-500 scale-110'
-                      : 'text-slate-600 dark:text-slate-400'
+                      ? 'text-teal-500 bg-teal-500/8 dark:bg-teal-500/10'
+                      : 'text-slate-500 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-400'
                   }`}
                   aria-label={label}
                 >
-                  <Icon className={`w-6 h-6 ${isActive ? 'scale-110' : ''}`} />
-                  <span className="text-xs font-medium">{label}</span>
+                  <Icon className={`w-5 h-5 transition-transform duration-300 ${isActive ? 'scale-110' : ''}`} />
+                  <span className={`text-[10px] font-medium tracking-tight ${isActive ? 'font-semibold' : ''}`}>{label}</span>
                 </button>
               )
             })}
@@ -449,22 +438,22 @@ const OnboardingOverlay = ({ onComplete, lang, t }) => {
 
   const steps = [
     {
-      title: lang === 'en' ? 'Welcome to Anchor' : 'Ласкаво просимо до Якір',
+      title: lang === 'en' ? 'Welcome to Anchor' : 'Вітаємо в Anchor',
       description: lang === 'en' 
         ? 'Your privacy-first sanctuary for anxiety relief and resilience building.'
-        : 'Ваш притулок, орієнтований на конфіденційність, для зняття тривоги та розвитку стійкості.'
+        : 'Твій приватний простір для роботи з тривогою та внутрішньої стійкості.'
     },
     {
-      title: lang === 'en' ? 'Proven Tools' : 'Перевірені інструменти',
+      title: lang === 'en' ? 'Proven Tools' : 'Перевірені техніки',
       description: lang === 'en'
         ? 'Access clinically proven techniques like 4-7-8 breathing, somatic grounding, and CBT journaling.'
-        : 'Отримайте доступ до клінічно перевірених технік, таких як дихання 4-7-8, соматичне заземлення та CBT-щоденник.'
+        : 'Дихання 4-7-8, заземлення, щоденник переосмислення — усе підтверджено клінічно.'
     },
     {
-      title: lang === 'en' ? 'Your Safe Space' : 'Ваш безпечний простір',
+      title: lang === 'en' ? 'Your Safe Space' : 'Твій безпечний простір',
       description: lang === 'en'
         ? 'Everything works offline. Your data stays private. No tracking, no intrusion.'
-        : 'Все працює офлайн. Ваші дані залишаються приватними. Без відстеження, без вторгнення.'
+        : 'Працює офлайн. Дані залишаються на пристрої. Жодного відстеження.'
     },
   ]
 
@@ -499,7 +488,7 @@ const OnboardingOverlay = ({ onComplete, lang, t }) => {
         <button
           onClick={handleSkip}
           className="absolute -top-2 -right-2 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors z-10"
-          aria-label={lang === 'en' ? 'Skip onboarding' : 'Пропустити ознайомлення'}
+          aria-label={lang === 'en' ? 'Skip onboarding' : 'Пропустити'}
         >
           <X className="w-5 h-5" />
         </button>
@@ -509,7 +498,7 @@ const OnboardingOverlay = ({ onComplete, lang, t }) => {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs text-slate-500 font-medium">
-                {lang === 'en' ? `Step ${step + 1} of ${steps.length}` : `Крок ${step + 1} з ${steps.length}`}
+                {lang === 'en' ? `Step ${step + 1} of ${steps.length}` : `${step + 1} з ${steps.length}`}
               </span>
               <div className="flex gap-2">
                 {steps.map((_, index) => (
@@ -559,7 +548,7 @@ const OnboardingOverlay = ({ onComplete, lang, t }) => {
                   <ChevronRight className="w-5 h-5" />
                 </>
               ) : (
-                lang === 'en' ? 'Enter The Anchor' : 'Увійти до Якір'
+                lang === 'en' ? 'Enter The Anchor' : 'Почати'
               )}
             </button>
           </div>
@@ -575,7 +564,7 @@ const PrintTemplate = ({ entries, lang }) => {
     <div className="hidden print:block print:bg-white print:text-black">
       <div className="print:p-8">
         <h1 className="print:text-3xl print:font-bold print:mb-6">
-          {lang === 'en' ? 'Anchor Journal' : 'Щоденник Якір'}
+          {lang === 'en' ? 'Anchor Journal' : 'Щоденник Anchor'}
         </h1>
         <div className="print:space-y-6">
           {entries.length === 0 ? (
@@ -594,24 +583,24 @@ const PrintTemplate = ({ entries, lang }) => {
                       day: 'numeric' 
                     }
                   )}
-                  {entry.mood && ` • Mood: ${entry.mood}/10`}
-                  {entry.tags && entry.tags.length > 0 && ` • Tags: ${entry.tags.join(', ')}`}
+                  {entry.mood && ` • ${lang === 'en' ? 'Mood' : 'Настрій'}: ${entry.mood}/10`}
+                  {entry.tags && entry.tags.length > 0 && ` • ${lang === 'en' ? 'Tags' : 'Теги'}: ${entry.tags.join(', ')}`}
                 </div>
                 {entry.trigger && (
                   <div className="print:mb-2">
-                    <div className="print:text-xs print:font-bold print:text-rose-600 print:mb-1">TRIGGER</div>
+                    <div className="print:text-xs print:font-bold print:text-rose-600 print:mb-1">{lang === 'en' ? 'TRIGGER' : 'ТРИГЕР'}</div>
                     <div className="print:text-base print:leading-relaxed">{entry.trigger}</div>
                   </div>
                 )}
                 {entry.thought && (
                   <div className="print:mb-2">
-                    <div className="print:text-xs print:font-bold print:text-indigo-600 print:mb-1">THOUGHT</div>
+                    <div className="print:text-xs print:font-bold print:text-indigo-600 print:mb-1">{lang === 'en' ? 'THOUGHT' : 'ДУМКА'}</div>
                     <div className="print:text-base print:leading-relaxed">{entry.thought}</div>
                   </div>
                 )}
                 {entry.rational && (
                   <div>
-                    <div className="print:text-xs print:font-bold print:text-teal-600 print:mb-1">REFRAMED</div>
+                    <div className="print:text-xs print:font-bold print:text-teal-600 print:mb-1">{lang === 'en' ? 'REFRAMED' : 'ПЕРЕОСМИСЛЕНО'}</div>
                     <div className="print:text-base print:leading-relaxed">{entry.rational}</div>
                   </div>
                 )}
@@ -631,7 +620,7 @@ const AppShell = ({ onGoToLanding }) => {
     return saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
   })
   const [lang, setLang] = useState(() => {
-    return localStorage.getItem('anchor_lang') || 'en'
+    return localStorage.getItem('anchor_lang') || 'ua'
   })
   const [activeTab, setActiveTab] = useState('breathe')
   const [entries, setEntries] = useState(() => {
@@ -759,8 +748,8 @@ const AppShell = ({ onGoToLanding }) => {
       {/* Device Frame */}
       <div className={`
         w-full h-screen
-        ${isDark ? 'bg-slate-900' : 'bg-white'}
-        md:max-w-md md:h-[90vh] md:rounded-[3rem] md:border-[8px] md:border-slate-800
+        ${isDark ? 'bg-slate-900' : 'bg-gradient-to-b from-slate-50 to-white'}
+        md:max-w-md md:h-[90vh] md:rounded-[2.5rem] md:border-[8px] md:border-slate-800
         overflow-hidden
         relative
         flex flex-col
@@ -810,16 +799,16 @@ const AppShell = ({ onGoToLanding }) => {
             <>
               {/* Quote Area with Settings (visible on breathe tab) - Compact */}
               {dailyQuote && (
-                <div className="px-4 pt-3 pb-3">
-                  <div className="bg-slate-100 dark:bg-slate-800 rounded-2xl p-3 border border-slate-200 dark:border-slate-700">
-                    <p className="text-slate-700 dark:text-slate-300 text-center italic leading-relaxed text-sm">
+                <div className="px-4 pt-3 pb-2">
+                  <div className="glass-card px-4 py-3" style={{ borderLeft: '3px solid #14b8a6' }}>
+                    <p className="text-slate-600 dark:text-slate-300 italic leading-relaxed text-[15px] tracking-tight">
                       {dailyQuote}
                     </p>
                   </div>
                 </div>
               )}
               <ErrorBoundary isDark={isDark}>
-                <Breathing t={t} isDark={isDark} onRefreshQuote={refreshDailyQuote} />
+                <Breathing t={t} isDark={isDark} onRefreshQuote={refreshDailyQuote} lang={lang} />
               </ErrorBoundary>
             </>
             </div>
@@ -829,7 +818,7 @@ const AppShell = ({ onGoToLanding }) => {
           {activeTab === 'sos' && (
             <div className="tab-transition-wrapper">
               <ErrorBoundary isDark={isDark}>
-                <SOS t={t} isDark={isDark} />
+                <SOS t={t} isDark={isDark} lang={lang} />
               </ErrorBoundary>
             </div>
           )}
@@ -838,7 +827,7 @@ const AppShell = ({ onGoToLanding }) => {
           {activeTab === 'pmr' && (
             <div className="tab-transition-wrapper">
               <ErrorBoundary isDark={isDark}>
-                <PMR t={t} isDark={isDark} />
+                <PMR t={t} isDark={isDark} lang={lang} />
               </ErrorBoundary>
             </div>
           )}
@@ -847,7 +836,7 @@ const AppShell = ({ onGoToLanding }) => {
           {activeTab === 'journal' && (
             <div className="tab-transition-wrapper">
               <ErrorBoundary isDark={isDark}>
-                <Journal t={t} isDark={isDark} addEntry={addEntry} entries={entries} />
+                <Journal t={t} isDark={isDark} addEntry={addEntry} entries={entries} lang={lang} />
               </ErrorBoundary>
             </div>
           )}
@@ -864,6 +853,7 @@ const AppShell = ({ onGoToLanding }) => {
                   restoreEntries={restoreEntries}
                   onNavigateToJournal={() => setActiveTab('journal')}
                   onRefresh={refreshDailyQuote}
+                  lang={lang}
                 />
               </ErrorBoundary>
             </div>
@@ -909,6 +899,7 @@ const AppShell = ({ onGoToLanding }) => {
             onQuickJournal={() => setActiveTab('journal')}
             onQuickSOS={() => setActiveTab('sos')}
             onQuickBreathing={() => setActiveTab('breathe')}
+            lang={lang}
           />
         )}
       </div>

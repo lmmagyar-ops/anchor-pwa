@@ -10,7 +10,7 @@ import { getAchievements, ACHIEVEMENTS } from '../utils/achievements'
 import StreakCounter from './StreakCounter'
 import AchievementBadge from './AchievementBadge'
 
-const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateToJournal, onRefresh }) => {
+const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateToJournal, onRefresh, lang = 'en' }) => {
   const { toast } = useToast()
   const [isDeleting, setIsDeleting] = useState(false)
   const fileInputRef = useRef(null)
@@ -29,10 +29,10 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
       if (onRefresh) {
         await onRefresh()
       }
-      toast.success('Refreshed!', 2000)
+      toast.success(lang === 'en' ? 'Refreshed!' : 'Оновлено!', 2000)
     } catch (error) {
       console.error('Refresh error:', error)
-      toast.error('Refresh failed')
+      toast.error(lang === 'en' ? 'Refresh failed' : 'Не вдалося оновити')
     }
   }
   
@@ -65,8 +65,15 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
 
   const unlockedAchievements = useMemo(() => {
     const achievementIds = getAchievements()
-    return achievementIds.map(id => ACHIEVEMENTS[id]).filter(Boolean)
-  }, [])
+    return achievementIds.map(id => {
+      const a = ACHIEVEMENTS[id]
+      if (!a) return null
+      if (lang === 'ua') {
+        return { ...a, title: a.titleUa || a.title, description: a.descriptionUa || a.description }
+      }
+      return a
+    }).filter(Boolean)
+  }, [lang])
 
   const totalActiveDays = useMemo(() => getTotalActiveDays(), [entries])
 
@@ -222,7 +229,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
   // Format date
   const formatDate = (timestamp) => {
     const date = new Date(timestamp)
-    return date.toLocaleDateString('en-US', { 
+    return date.toLocaleDateString(lang === 'en' ? 'en-US' : 'uk-UA', { 
       month: 'short', 
       day: 'numeric', 
       year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
@@ -358,10 +365,10 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
         </div>
         
         {/* Message */}
-        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 text-center">
+        <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2 text-center tracking-tight">
           {t.history.emptyTitle || 'Start Your Journey'}
         </h3>
-        <p className="text-slate-600 dark:text-slate-400 text-center mb-6 max-w-sm">
+        <p className="text-sm text-slate-500 dark:text-slate-400 text-center mb-6 max-w-sm tracking-tight">
           {t.history.empty}
         </p>
         
@@ -369,7 +376,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
         {onNavigateToJournal && (
           <button
             onClick={onNavigateToJournal}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all"
+            className="px-6 py-3 rounded-2xl bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold flex items-center gap-2 shadow-lg shadow-teal-500/20 hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             <BookOpen className="w-5 h-5" />
             {t.history.startJournaling || 'Start Journaling'}
@@ -415,7 +422,11 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
               }}
             />
             <span className="text-sm font-medium">
-              {isRefreshing ? 'Refreshing...' : pullDistance >= 80 ? 'Release to refresh' : 'Pull to refresh'}
+              {isRefreshing 
+                ? (lang === 'en' ? 'Refreshing...' : 'Оновлення...') 
+                : pullDistance >= 80 
+                  ? (lang === 'en' ? 'Release to refresh' : 'Відпусти для оновлення') 
+                  : (lang === 'en' ? 'Pull to refresh' : 'Потягни для оновлення')}
             </span>
           </div>
         </div>
@@ -433,11 +444,11 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
       {/* Header & Controls */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-1">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-1 tracking-tight">
             {t.history.title}
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm">
-            {entries.length} {entries.length === 1 ? 'entry' : 'entries'}
+          <p className="text-slate-500 dark:text-slate-400 text-sm tracking-tight">
+            {entries.length} {lang === 'en' ? (entries.length === 1 ? 'entry' : 'entries') : (entries.length === 1 ? 'запис' : entries.length < 5 ? 'записи' : 'записів')}
           </p>
         </div>
         <button
@@ -462,7 +473,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
           <div className="flex items-center gap-2 mb-4">
             <Flame className="w-5 h-5 text-orange-500" />
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-              Your Streaks
+              {lang === 'en' ? 'Your Streaks' : 'Твої серії'}
             </h3>
           </div>
           
@@ -488,7 +499,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
               <div className="flex items-center gap-2 mb-3 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <Trophy className="w-5 h-5 text-amber-500" />
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                  Achievements
+                  {lang === 'en' ? 'Achievements' : 'Досягнення'}
                 </h3>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -568,7 +579,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
                   const pointY = (y / 100) * svgRect.height + svgRect.top
                   
                   const date = new Date(entry.date || entry.timestamp)
-                  const dateStr = date.toLocaleDateString('en-US', { 
+                  const dateStr = date.toLocaleDateString(lang === 'en' ? 'en-US' : 'uk-UA', { 
                     month: 'short', 
                     day: 'numeric',
                     year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
@@ -579,7 +590,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
                     content: (
                       <div>
                         <div className="font-semibold">{dateStr}</div>
-                        <div className="text-xs opacity-80">Mood: {entry.mood}/10</div>
+                        <div className="text-xs opacity-80">{lang === 'en' ? 'Mood' : 'Настрій'}: {entry.mood}/10</div>
                       </div>
                     ),
                     position: { x: pointX, y: pointY }
@@ -631,7 +642,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
             const handleDayInteraction = (e) => {
               const rect = e.currentTarget.getBoundingClientRect()
               const date = new Date(day.date)
-              const dateStr = date.toLocaleDateString('en-US', { 
+               const dateStr = date.toLocaleDateString(lang === 'en' ? 'en-US' : 'uk-UA', { 
                 month: 'short', 
                 day: 'numeric'
               })
@@ -642,7 +653,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
                   <div>
                     <div className="font-semibold">{dateStr}</div>
                     <div className="text-xs opacity-80">
-                      {day.mood ? `Mood: ${day.mood}/10` : 'No entry'}
+                      {day.mood ? `${lang === 'en' ? 'Mood' : 'Настрій'}: ${day.mood}/10` : (lang === 'en' ? 'No entry' : 'Немає запису')}
                     </div>
                   </div>
                 ),
@@ -697,10 +708,10 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
                     <div>
                       <div className="font-semibold">{pattern.tag}</div>
                       <div className="text-xs opacity-80">
-                        Avg Mood: {pattern.avgMood.toFixed(1)}/10
+                        Avg {lang === 'en' ? 'Mood' : 'настрій'}: {pattern.avgMood.toFixed(1)}/10
                       </div>
                       <div className="text-xs opacity-80">
-                        Entries: {pattern.count}
+                        {lang === 'en' ? 'Entries' : 'Записів'}: {pattern.count}
                       </div>
                     </div>
                   ),
@@ -745,7 +756,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
         {/* Export PDF Button */}
         <button
           onClick={handlePrint}
-          className="w-full py-3 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 hover:border-teal-500 dark:hover:border-teal-400 transition-colors"
+          className="w-full py-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 font-medium flex items-center justify-center gap-2 hover:border-teal-500/50 dark:hover:border-teal-400/50 hover:bg-teal-500/5 transition-all"
         >
           <FileText className="w-5 h-5" />
           {t.history.export}
@@ -754,7 +765,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
         {/* Backup Button */}
         <button
           onClick={handleBackup}
-          className="w-full py-3 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 hover:border-teal-500 dark:hover:border-teal-400 transition-colors"
+          className="w-full py-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 font-medium flex items-center justify-center gap-2 hover:border-teal-500/50 dark:hover:border-teal-400/50 hover:bg-teal-500/5 transition-all"
         >
           <Download className="w-5 h-5" />
           {t.history.backup}
@@ -763,7 +774,7 @@ const History = ({ t, isDark, entries, clearEntries, restoreEntries, onNavigateT
         {/* Restore Button */}
         <button
           onClick={handleRestore}
-          className="w-full py-3 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 hover:border-teal-500 dark:hover:border-teal-400 transition-colors"
+          className="w-full py-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 font-medium flex items-center justify-center gap-2 hover:border-teal-500/50 dark:hover:border-teal-400/50 hover:bg-teal-500/5 transition-all"
         >
           <Upload className="w-5 h-5" />
           {t.history.restore}

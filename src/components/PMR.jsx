@@ -7,7 +7,7 @@ import { updateStreak, getAllCurrentStreaks, getTotalActiveDays } from '../utils
 import { checkAchievements } from '../utils/achievements'
 import { useToast } from '../context/ToastContext'
 
-const PMR = ({ t, isDark }) => {
+const PMR = ({ t, isDark, lang = 'en' }) => {
   const [step, setStep] = useState(0)
   const [isActive, setIsActive] = useState(false)
   const [timeRemaining, setTimeRemaining] = useState(0)
@@ -141,7 +141,7 @@ const PMR = ({ t, isDark }) => {
                 const streak = updateStreak('pmr')
                 const streaks = getAllCurrentStreaks()
                 const totalDays = getTotalActiveDays()
-                const newAchievements = checkAchievements(streaks, totalDays)
+                const newAchievements = checkAchievements(streaks, totalDays, lang)
                 
                 if (newAchievements.length > 0) {
                   newAchievements.forEach(achievement => {
@@ -259,11 +259,11 @@ const PMR = ({ t, isDark }) => {
     <div ref={swipeRef} className="flex flex-col min-h-[calc(100vh-200px)] animate-fade-in px-4 py-4 overflow-y-auto">
       {/* Header - More compact */}
       <div className={`text-center ${isActive ? 'mb-3' : 'mb-4'}`}>
-        <h2 className={`font-bold text-slate-900 dark:text-white ${isActive ? 'text-xl mb-1' : 'text-3xl mb-2'}`}>
+        <h2 className={`font-bold text-slate-800 dark:text-white tracking-tight ${isActive ? 'text-xl mb-1' : 'text-2xl mb-1'}`}>
           {t.pmr?.title || 'Relax with Intention'}
         </h2>
         {!isActive && (
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-sm text-slate-500 dark:text-slate-400 tracking-tight">
             {t.pmr?.desc || 'Tense and release muscle groups to reduce tension'}
           </p>
         )}
@@ -277,7 +277,7 @@ const PMR = ({ t, isDark }) => {
         </div>
         <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
           <div
-            className="h-full bg-teal-500 transition-all duration-300"
+            className="h-full bg-gradient-to-r from-teal-500 to-teal-400 rounded-full transition-all duration-500"
             style={{ width: `${((step + 1) / muscleGroups.length) * 100}%` }}
           />
         </div>
@@ -371,12 +371,12 @@ const PMR = ({ t, isDark }) => {
             onClick={!isActive ? togglePhase : (timeRemaining === 0 ? togglePhase : stopSession)}
             className={`
               w-full max-w-xs ${isActive ? 'py-3' : 'py-4'} rounded-2xl font-semibold ${isActive ? 'text-base' : 'text-lg'}
-              transition-all transform hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl active:scale-95
+              transition-all transform hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]
               ${isActive
                 ? timeRemaining > 0
                   ? 'bg-slate-800 dark:bg-slate-700 text-slate-200 hover:bg-slate-700 dark:hover:bg-slate-600'
-                  : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white hover:from-teal-700 hover:to-teal-600'
-                : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white hover:from-teal-700 hover:to-teal-600'
+                  : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-teal-500/20 hover:from-teal-700 hover:to-teal-600'
+                : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-500/20 hover:from-teal-700 hover:to-teal-600'
               }
             `}
           >

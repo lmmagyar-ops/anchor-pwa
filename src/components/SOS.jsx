@@ -8,7 +8,7 @@ import { updateStreak, getAllCurrentStreaks, getTotalActiveDays } from '../utils
 import { checkAchievements } from '../utils/achievements'
 import { useToast } from '../context/ToastContext'
 
-const SOS = ({ t, isDark }) => {
+const SOS = ({ t, isDark, lang = 'en' }) => {
   const { toast } = useToast()
   const [step, setStep] = useState(0) // 0-4: Sight, Touch, Sound, Smell, Taste
 
@@ -68,7 +68,7 @@ const SOS = ({ t, isDark }) => {
       // Check for achievements
       const streaks = getAllCurrentStreaks()
       const totalDays = getTotalActiveDays()
-      const newAchievements = checkAchievements(streaks, totalDays)
+      const newAchievements = checkAchievements(streaks, totalDays, lang)
       
       if (newAchievements.length > 0) {
         newAchievements.forEach(achievement => {
@@ -123,10 +123,10 @@ const SOS = ({ t, isDark }) => {
     <div ref={swipeRef} className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)] animate-fade-in px-4 py-8 overflow-y-auto">
       {/* Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+        <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-1 tracking-tight">
           {t.sos.title}
         </h2>
-        <p className="text-slate-600 dark:text-slate-400">
+        <p className="text-sm text-slate-500 dark:text-slate-400 tracking-tight">
           {t.sos.desc}
         </p>
       </div>
@@ -145,9 +145,9 @@ const SOS = ({ t, isDark }) => {
         })()}
 
         {/* Main Card - Circular */}
-        <div className={`relative w-64 h-64 rounded-full border-4 ${currentStep.borderColor} bg-white/5 dark:bg-slate-800/50 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500`}>
+        <div className={`relative w-64 h-64 rounded-full border-2 ${currentStep.borderColor} bg-white/5 dark:bg-slate-800/50 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500`}>
           {/* Icon Container - Rounded Square with Glassmorphism */}
-          <div className="w-20 h-20 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-md flex items-center justify-center mb-4 border border-white/10">
+          <div className="w-20 h-20 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md flex items-center justify-center mb-4 border border-white/10">
             <Icon className={`w-8 h-8 ${currentStep.color}`} />
           </div>
 
@@ -162,12 +162,12 @@ const SOS = ({ t, isDark }) => {
       <button
         onClick={handleNext}
           className={`
-          w-full max-w-xs py-4 rounded-2xl shadow-xl font-semibold text-lg
-          transition-all transform hover:scale-105 hover:-translate-y-0.5 hover:shadow-2xl active:scale-95
+          w-full max-w-xs py-4 rounded-2xl shadow-lg font-semibold text-lg
+          transition-all transform hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]
           flex items-center justify-center gap-2 mb-4
           ${isLastStep
             ? 'bg-slate-700 dark:bg-slate-600 text-slate-200 hover:bg-slate-600 dark:hover:bg-slate-500'
-            : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white hover:from-teal-700 hover:to-teal-600'
+            : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-teal-500/20 hover:from-teal-700 hover:to-teal-600'
           }
         `}
       >

@@ -1,10 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Plus, BookOpen, Activity, Wind, X } from 'lucide-react'
 import { prefersReducedMotion } from '../utils/accessibility'
 
-const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBreathing }) => {
+const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBreathing, lang = 'en' }) => {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const lastScrollY = useRef(0)
   const reducedMotion = prefersReducedMotion()
+
+  // Scroll-aware auto-hide
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY
+      const delta = currentY - lastScrollY.current
+
+      if (Math.abs(delta) < 10) return // Ignore tiny movements
+
+      if (delta > 0 && currentY > 80) {
+        // Scrolling down past threshold — hide
+        setIsVisible(false)
+        setIsExpanded(false)
+      } else if (delta < -10) {
+        // Scrolling up — show
+        setIsVisible(true)
+      }
+
+      lastScrollY.current = currentY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const actions = []
 
@@ -12,7 +38,7 @@ const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBr
   if (activeTab === 'history') {
     actions.push({
       id: 'quick-journal',
-      label: 'Quick Journal',
+      label: lang === 'en' ? 'Quick Journal' : 'Щоденник',
       icon: BookOpen,
       onClick: () => {
         setIsExpanded(false)
@@ -25,7 +51,7 @@ const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBr
   // Quick SOS - available from any tab
   actions.push({
     id: 'quick-sos',
-    label: 'Quick SOS',
+    label: lang === 'en' ? 'Quick SOS' : 'SOS',
     icon: Activity,
     onClick: () => {
       setIsExpanded(false)
@@ -38,7 +64,7 @@ const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBr
   if (activeTab !== 'breathe') {
     actions.push({
       id: 'quick-breathing',
-      label: 'Start Breathing',
+      label: lang === 'en' ? 'Start Breathing' : 'Дихання',
       icon: Wind,
       onClick: () => {
         setIsExpanded(false)
@@ -56,7 +82,7 @@ const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBr
   }
 
   return (
-    <div className="fixed bottom-28 right-4 z-30 flex flex-col items-end gap-3">
+    <div className={`fixed bottom-28 right-4 z-30 flex flex-col items-end gap-3 transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0 pointer-events-none'}`}>
       {/* Action Buttons */}
       {isExpanded && actions.map((action, index) => {
         const Icon = action.icon
@@ -66,11 +92,11 @@ const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBr
             onClick={action.onClick}
             className={`
               ${action.color}
-              text-white rounded-full p-4 shadow-xl
+              text-white rounded-2xl p-3.5 shadow-lg
               flex items-center gap-3
               transition-all transform
               ${reducedMotion ? '' : 'animate-fade-in'}
-              hover:scale-110 active:scale-95
+              hover:scale-[1.05] active:scale-[0.95]
               ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}
             `}
             style={{
@@ -91,12 +117,12 @@ const FloatingActionButton = ({ activeTab, onQuickJournal, onQuickSOS, onQuickBr
         onClick={toggleExpanded}
         className={`
           w-14 h-14 rounded-full
-          bg-gradient-to-r from-teal-600 to-teal-500
-          text-white shadow-xl
+          bg-gradient-to-br from-teal-600 to-teal-500
+          text-white shadow-lg shadow-teal-500/25
           flex items-center justify-center
           transition-all transform
-          hover:scale-110 active:scale-95
-          hover:shadow-2xl
+          hover:scale-[1.05] active:scale-[0.95]
+          hover:shadow-xl
           ${isExpanded ? 'rotate-45' : 'rotate-0'}
         `}
         aria-label={isExpanded ? 'Close quick actions' : 'Open quick actions'}

@@ -10,10 +10,8 @@ import {
   ArrowRight,
   Shield,
   CheckCircle2,
-  Users,
   Lock,
-  WifiOff,
-  Star
+  WifiOff
 } from 'lucide-react'
 import { prefersReducedMotion } from '../utils/accessibility'
 
@@ -87,15 +85,15 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
       isDark ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-800'
     }`}>
       {/* Navigation Bar */}
-      <nav className="fixed top-0 z-50 w-full backdrop-blur-md bg-opacity-80 bg-slate-100/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+      <nav className="fixed top-0 z-50 w-full glass">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Left: Logo */}
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-md shadow-teal-500/20">
                 <AnchorIcon className="w-5 h-5 text-white" />
               </div>
-              <span className="font-semibold text-slate-900 dark:text-white">
+              <span className="font-semibold text-slate-800 dark:text-white tracking-tight">
                 Anchor
               </span>
             </div>
@@ -105,20 +103,20 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+                className="p-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 transition-all"
                 aria-label="Toggle theme"
               >
                 {isDark ? (
-                  <Sun className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <Sun className="w-[18px] h-[18px]" />
                 ) : (
-                  <Moon className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <Moon className="w-[18px] h-[18px]" />
                 )}
               </button>
 
               {/* Language Toggle */}
               <button
                 onClick={toggleLang}
-                className="px-3 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+                className="px-3 py-1.5 rounded-full text-sm font-semibold tracking-tight transition-all bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/50 dark:border-slate-700/50"
               >
                 {lang === 'en' ? 'UA' : 'EN'}
               </button>
@@ -185,8 +183,8 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
             )}
           </h1>
           
-          <p className={`max-w-2xl mx-auto text-xl md:text-2xl mb-10 leading-relaxed transition-colors duration-700 font-medium ${
-            isDark ? 'text-slate-300' : 'text-slate-600'
+          <p className={`max-w-2xl mx-auto text-lg md:text-xl mb-10 leading-relaxed transition-colors duration-700 ${
+            isDark ? 'text-slate-400' : 'text-slate-500'
           }`}>
             {heroDesc}
           </p>
@@ -195,7 +193,7 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
           <div className="mb-8 flex items-center justify-center relative z-10">
             <button
               onClick={onEnter}
-              className={`group px-12 py-6 rounded-2xl font-bold text-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 shadow-2xl min-w-[200px] relative z-10 overflow-hidden cta-glow-button ${
+              className={`group px-12 py-5 rounded-2xl font-bold text-xl transition-all transform hover:scale-[1.03] active:scale-[0.97] flex items-center justify-center gap-3 shadow-elevated min-w-[200px] relative z-10 overflow-hidden cta-glow-button ${
                 isDark
                   ? 'bg-gradient-to-r from-teal-600 to-teal-500 text-white hover:from-teal-500 hover:to-teal-400'
                   : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white hover:from-teal-700 hover:to-teal-600'
@@ -224,12 +222,12 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
               <p className={`text-xs font-semibold ${
                 isDark ? 'text-white' : 'text-slate-800'
               }`}>
-                No Account
+                {lang === 'en' ? 'No Account' : 'Без реєстрації'}
               </p>
               <p className={`text-xs ${
                 isDark ? 'text-slate-400' : 'text-slate-600'
               }`}>
-                Required
+                {lang === 'en' ? 'Required' : ''}
               </p>
             </div>
             <div className={`text-center p-4 rounded-xl backdrop-blur-sm ${
@@ -241,15 +239,15 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
               <p className={`text-xs font-semibold ${
                 isDark ? 'text-white' : 'text-slate-800'
               }`}>
-                Works
+                {lang === 'en' ? 'Works' : 'Працює'}
               </p>
               <p className={`text-xs ${
                 isDark ? 'text-slate-400' : 'text-slate-600'
               }`}>
-                Offline
+                {lang === 'en' ? 'Offline' : 'офлайн'}
               </p>
             </div>
-            <div className={`text-center p-4 rounded-xl backdrop-blur-sm ${
+            <div className={`text-center p-4 rounded-2xl glass-card hover-lift ${
               isDark ? 'bg-white/5 border border-white/10' : 'bg-white/50 border border-slate-200'
             }`}>
               <ShieldCheck className={`w-6 h-6 mx-auto mb-2 ${
@@ -263,7 +261,7 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
               <p className={`text-xs ${
                 isDark ? 'text-slate-400' : 'text-slate-600'
               }`}>
-                Private
+                {lang === 'en' ? 'Private' : 'приватно'}
               </p>
             </div>
           </div>
@@ -360,7 +358,7 @@ const LandingPage = ({ onEnter, content, isDark: initialDark, lang: initialLang,
             <h2 className={`text-3xl md:text-4xl font-bold text-center mb-12 transition-colors duration-700 ${
               isDark ? 'text-white' : 'text-slate-900'
             }`}>
-              What Users Are Saying
+              {lang === 'en' ? 'What Users Are Saying' : 'Що кажуть користувачі'}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {c.testimonials.map((testimonial, index) => {

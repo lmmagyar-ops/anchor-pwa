@@ -24,31 +24,11 @@ export const landingPageContent = {
         icon: "Wind"
       }
     ],
-    trustSection: {
-      title: "Why Thousands Trust Anchor",
-      stats: [
-        { number: "10,000+", label: "Breathing Sessions" },
-        { number: "5,000+", label: "Journal Entries" },
-        { number: "100%", label: "Private & Secure" }
-      ]
-    },
-    testimonials: [
-      {
-        text: "Anchor has been a game-changer for managing my anxiety. The breathing exercises work every time.",
-        author: "Sarah M."
-      },
-      {
-        text: "Finally, an app that respects my privacy. The tools are powerful and I know my data is safe.",
-        author: "James K."
-      },
-      {
-        text: "The grounding technique has saved me during panic attacks. Simple, effective, and always available.",
-        author: "Maria L."
-      }
-    ],
+    trustSection: null,
+    testimonials: [],
     secondaryCta: {
       title: "Ready to Find Your Calm?",
-      desc: "Join thousands who are taking control of their anxiety with Anchor.",
+      desc: "Take the first step toward managing your anxiety with Anchor.",
       button: "Get Started Free"
     },
     expertBadge: "Clinical Expertise",
@@ -58,62 +38,42 @@ export const landingPageContent = {
     footer: "© 2024 Anchor. Built with privacy in mind."
   },
   ua: {
-    heroTitle: "Знайдіть спокій, коли нападає тривога",
-    heroDesc: "Ваш особистий набір інструментів для управління тривогою. Клінічно перевірені інструменти, які працюють офлайн. Ваші думки, ваш пристрій, ваш контроль.",
-    enterBtn: "Почніть свою подорож до спокою",
-    enterBtnSecondary: "Дослідити інструменти",
-    privacyTitle: "100% Приватно",
-    privacyDesc: "Без хмарних серверів. Без відстеження. Все залишається на вашому пристрої.",
-    trustBadge: "🔒 Реєстрація не потрібна • Працює офлайн • 100% Приватно",
+    heroTitle: "Знайди спокій, коли тривога накриває",
+    heroDesc: "Твій особистий набір інструментів проти тривоги. Клінічно перевірені техніки, що працюють офлайн. Твої думки, твій пристрій, твій контроль.",
+    enterBtn: "Почати шлях до спокою",
+    enterBtnSecondary: "Подивитися інструменти",
+    privacyTitle: "100% приватно",
+    privacyDesc: "Без серверів. Без відстеження. Усе залишається на твоєму пристрої.",
+    trustBadge: "🔒 Без реєстрації • Працює офлайн • 100% приватно",
     features: [
       {
-        title: "Зупиніть паніку на місці",
-        desc: "Поверніться до поточного моменту за 5 кроків. Техніка заземлення 5-4-3-2-1 допомагає вам перезв'язатися, коли тривога переповнює.",
+        title: "Зупини паніку",
+        desc: "Повернись у теперішній момент за 5 кроків. Техніка заземлення 5-4-3-2-1 допоможе, коли тривога захлинає.",
         icon: "Zap"
       },
       {
-        title: "Переосмисліть негативні думки",
-        desc: "Киньте виклик тривожному мисленню за допомогою структурованого CBT-щоденника. Перетворіть занепокоєння на ясність, один запис за раз.",
+        title: "Подивись на думки інакше",
+        desc: "Розбери тривожні думки за допомогою щоденника переосмислення. Перетвори хвилювання на ясність — крок за кроком.",
         icon: "Brain"
       },
       {
-        title: "Регулюйте свою нервову систему",
-        desc: "Заспокойте реакцію вашого тіла на стрес за допомогою керованого дихання 4-7-8. Науково обґрунтовані техніки, які працюють за хвилини.",
+        title: "Заспокой нервову систему",
+        desc: "Зніми стресову реакцію тіла технікою дихання 4-7-8. Науково підтверджений метод, що діє за лічені хвилини.",
         icon: "Wind"
       }
     ],
-    trustSection: {
-      title: "Чому тисячі довіряють Anchor",
-      stats: [
-        { number: "10,000+", label: "Сесій дихання" },
-        { number: "5,000+", label: "Записів у щоденнику" },
-        { number: "100%", label: "Приватно та безпечно" }
-      ]
-    },
-    testimonials: [
-      {
-        text: "Anchor змінив правила гри для управління моєю тривогою. Дихальні вправи працюють щоразу.",
-        author: "Сара М."
-      },
-      {
-        text: "Нарешті, додаток, який поважає мою конфіденційність. Інструменти потужні, і я знаю, що мої дані в безпеці.",
-        author: "Джеймс К."
-      },
-      {
-        text: "Техніка заземлення врятувала мене під час панічних атак. Просто, ефективно і завжди доступно.",
-        author: "Марія Л."
-      }
-    ],
+    trustSection: null,
+    testimonials: [],
     secondaryCta: {
-      title: "Готові знайти свій спокій?",
-      desc: "Приєднуйтесь до тисяч, які беруть контроль над своєю тривогою з Anchor.",
-      button: "Почніть безкоштовно"
+      title: "Готовий знайти свій спокій?",
+      desc: "Зроби перший крок до управління тривогою з Anchor.",
+      button: "Почати безкоштовно"
     },
     expertBadge: "Клінічна експертиза",
-    expertTitle: "Клінічний психолог",
-    expertDesc: "Розроблено у співпраці з Вікторією, ліцензованим клінічним психологом, який спеціалізується на тривозі та інформуваному про травму догляді.",
-    expertLink: "Записатися на безкоштовну консультацію",
-    footer: "© 2024 Anchor. Побудовано з урахуванням конфіденційності."
+    expertTitle: "Клінічна психологиня",
+    expertDesc: "Створено разом із Вікторією — ліцензованою клінічною психологинею, яка спеціалізується на тривозі та травмі.",
+    expertLink: "Записатися на безкоштовну розмову",
+    footer: "© 2024 Anchor. Створено з турботою про приватність."
   }
 }
 
